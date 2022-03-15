@@ -11,6 +11,7 @@ Made by a  Very H0rny 0n1.
 1 - Generate Password.
 2 - Save New Credentials.
 3 - Check Credentials.
+4 - Delete Credential.
 
 Select Option: 
 """
@@ -36,6 +37,30 @@ def run():
         for i in file:
             row = i.split("||")
             print(f"{row[0]}\t{row[1]}\t{row[2]}")
+    elif option == 4:
+        credentials = []
+        file = open("file.txt", "r")
+        
+        # read credentials and store them
+        for i in file:
+            credentials.append(i[:-1])
+        #print(credentials)
+        file.close()
+        
+        # read list credentials and choose which to delete
+        cont = 1
+        for credential in credentials:
+            print(f"{cont} - {credential}")
+            cont += 1
+        cred = input("\nSelect credential to erase: ")
+        cred = int(cred)
+        credentials.pop(cred-1)
+        print(f"\nCredential with ID:{cred} eliminated from credentials!")
+        
+        file = open("file.txt", "w")
+        for credential in credentials:
+            file.writelines(f"{credential}\n")
+        file.close()
     else:
         print("Insert Valid Option. \n")
         run()
